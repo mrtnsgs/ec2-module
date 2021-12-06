@@ -1,0 +1,21 @@
+resource "aws_instance" "install_docker" {
+  key_name              = aws_key_pair.ec2-key.key_name
+  ami                   = var.ami
+  instance_type         = var.instance_type
+  security_groups       = ["${aws_security_group.ec2-sec.name}"]
+
+  connection {
+    host        = self.public_ip
+    user        = var.ssh_user
+    private_key = aws_key_pair.ec2-key.public_key
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "curl -fSsL https://get.docker.com -o /tmp/get-docker.sh",
+      "chmod +x /tmp/get-docker.sh",
+      "/tmp/get-docker.sh",
+    ]
+  }
+}

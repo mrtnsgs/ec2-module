@@ -1,0 +1,14 @@
+output "instance_public_ip" {
+  value       = "aws_instance.ec2.public_ip"
+  description = "EC2 Public IP"
+}
+
+output "public_dns" {
+  value       = "aws_instance.ec2.public_dns"
+  description = "EC2 Public DNS"
+}
+
+output "instance_id" {
+  value       = "aws_instance.ec2.id"
+  description = "EC2 Instance id"
+}
